@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, Image, ScrollView, Dimensions } from 'react-native'
+import { Text, View, StyleSheet, Image, ScrollView, Dimensions, TouchableNativeFeedback } from 'react-native'
 import Icon from "react-native-vector-icons/Ionicons";
 
 const screen = Dimensions.get('window')
@@ -13,7 +13,8 @@ class home extends Component {
                 price: '$2.45',
                 img: require('../assets/img/strawbery.png'),
                 color: '#FFE3E5',
-                height: screen.width * .32
+                height: screen.width * .32,
+                description: 'mango is a juicy stone fruit (drupe) produced from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.'
             },
             {
                 title: 'Mango',
@@ -21,7 +22,9 @@ class home extends Component {
                 price: '$1.01',
                 img: require('../assets/img/mango.png'),
                 color: '#FFE08E',
-                height: screen.width * .25
+                height: screen.width * .25,
+                description: 'mango is a juicy stone fruit (drupe) produced from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.'
+
 
             },
             {
@@ -30,7 +33,8 @@ class home extends Component {
                 price: '$4.6',
                 img: require('../assets/img/blueberies.png'),
                 color: '#E4E4FE',
-                height: screen.width * .27
+                height: screen.width * .27,
+                description: 'mango is a juicy stone fruit (drupe) produced from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.'
 
             },
             {
@@ -39,7 +43,9 @@ class home extends Component {
                 price: '$5.23',
                 img: require('../assets/img/dragon.png'),
                 color: '#FFEEFE',
-                height: screen.width * .26
+                height: screen.width * .26,
+                description: 'mango is a juicy stone fruit (drupe) produced from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.'
+
             },
             {
                 title: 'Blueberries',
@@ -47,7 +53,9 @@ class home extends Component {
                 price: '$4.6',
                 img: require('../assets/img/blueberies.png'),
                 color: '#E4E4FE',
-                height: screen.width * .27
+                height: screen.width * .27,
+                description: 'mango is a juicy stone fruit (drupe) produced from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.'
+
 
             },
             {
@@ -56,7 +64,9 @@ class home extends Component {
                 price: '$5.23',
                 img: require('../assets/img/dragon.png'),
                 color: '#FFEEFE',
-                height: screen.width * .26
+                height: screen.width * .26,
+                description: 'mango is a juicy stone fruit (drupe) produced from numerous species of tropical trees belonging to the flowering plant genus Mangifera, cultivated mostly for their edible fruit.'
+
             }
         ]
         return (
@@ -87,38 +97,15 @@ class home extends Component {
                                 menuList.filter((o, i) => {
                                     return i % 2 == 0
                                 }).map((item, index) =>
-                                    <View key={index} style={[styles.card, { backgroundColor: item.color }]}>
-                                        <View style={styles.cardHeader}>
-                                            <View style={styles.descrip}>
-                                                <Text style={styles.title}>{item.title}</Text>
-                                                <View>
-                                                    {
-                                                        item.unit == 'each' ?
-                                                            <View style={styles.each}>
-                                                                <Text style={[styles.price, { marginRight: 4 }]}>{item.price}</Text>
-                                                                <Text style={styles.label1}>{item.unit}</Text>
-                                                            </View>
-                                                            :
-                                                            <View>
-                                                                <Text style={styles.label1}>{item.unit}</Text>
-                                                                <Text style={styles.price}>{item.price}</Text>
-                                                            </View>
-                                                    }
-
-                                                </View>
-                                            </View>
-                                            <View style={{ marginTop: 3 }}>
-                                                <View style={styles.dot} />
-                                                <View style={styles.dot} />
-                                            </View>
-                                        </View>
-                                        <View style={styles.cardBody}>
-                                            <Image source={item.img}
-                                                style={[styles.imgFruit, { height: item.height }]}
-                                                resizeMode={'contain'}
-                                            />
-                                        </View>
-                                    </View>
+                                    <ItemMenu key={index}
+                                        title={item.title}
+                                        price={item.price}
+                                        unit={item.unit}
+                                        img={item.img}
+                                        color={item.color}
+                                        height={item.height}
+                                        onPress={() => this.props.navigation.navigate('AddFruit', { data: item })}
+                                    />
                                 )
                             }
                         </View>
@@ -128,38 +115,15 @@ class home extends Component {
                                 menuList.filter((o, i) => {
                                     return i % 2 == 1
                                 }).map((item, index) =>
-                                    <View key={index} style={[styles.card, { backgroundColor: item.color }]}>
-                                        <View style={styles.cardHeader}>
-                                            <View style={styles.descrip}>
-                                                <Text style={styles.title}>{item.title}</Text>
-                                                <View>
-                                                    {
-                                                        item.unit == 'each' ?
-                                                            <View style={styles.each}>
-                                                                <Text style={[styles.price, { marginRight: 4 }]}>{item.price}</Text>
-                                                                <Text style={styles.label1}>{item.unit}</Text>
-                                                            </View>
-                                                            :
-                                                            <View>
-                                                                <Text style={styles.label1}>{item.unit}</Text>
-                                                                <Text style={styles.price}>{item.price}</Text>
-                                                            </View>
-                                                    }
-
-                                                </View>
-                                            </View>
-                                            <View style={{ marginTop: 3 }}>
-                                                <View style={styles.dot} />
-                                                <View style={styles.dot} />
-                                            </View>
-                                        </View>
-                                        <View style={styles.cardBody}>
-                                            <Image source={item.img}
-                                                style={[styles.imgFruit, { height: item.height }]}
-                                                resizeMode={'contain'}
-                                            />
-                                        </View>
-                                    </View>
+                                    <ItemMenu key={index}
+                                        title={item.title}
+                                        price={item.price}
+                                        unit={item.unit}
+                                        img={item.img}
+                                        color={item.color}
+                                        height={item.height}
+                                        onPress={() => this.props.navigation.navigate('AddFruit', { data: item })}
+                                    />
                                 )
                             }
                         </View>
@@ -169,6 +133,47 @@ class home extends Component {
             </View>
         )
     }
+}
+
+function ItemMenu({ onPress, title, unit, price, img, color, height }) {
+    return (
+        <View style={{ overflow: 'hidden', borderRadius: 25 }}>
+            <TouchableNativeFeedback onPress={onPress}>
+                <View style={[styles.card, { backgroundColor: color }]}>
+                    <View style={styles.cardHeader}>
+                        <View style={styles.descrip}>
+                            <Text style={styles.title}>{title}</Text>
+                            <View>
+                                {
+                                    unit == 'each' ?
+                                        <View style={styles.each}>
+                                            <Text style={[styles.price, { marginRight: 4 }]}>{price}</Text>
+                                            <Text style={styles.label1}>{unit}</Text>
+                                        </View>
+                                        :
+                                        <View>
+                                            <Text style={styles.label1}>{unit}</Text>
+                                            <Text style={styles.price}>{price}</Text>
+                                        </View>
+                                }
+
+                            </View>
+                        </View>
+                        <View style={{ marginTop: 3 }}>
+                            <View style={styles.dot} />
+                            <View style={styles.dot} />
+                        </View>
+                    </View>
+                    <View style={styles.cardBody}>
+                        <Image source={img}
+                            style={[styles.imgFruit, { height: height }]}
+                            resizeMode={'contain'}
+                        />
+                    </View>
+                </View>
+            </TouchableNativeFeedback>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
